@@ -1,0 +1,68 @@
+You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+
+Increment the large integer by one and return the resulting array of digits.
+------------------------------------------------------------------------------------------------------
+Example 1:
+
+Input: digits = [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Incrementing by one gives 123 + 1 = 124.
+Thus, the result should be [1,2,4].
+Example 2:
+
+Input: digits = [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The array represents the integer 4321.
+Incrementing by one gives 4321 + 1 = 4322.
+Thus, the result should be [4,3,2,2].
+
+----------------------------------------------------------------------------------------------------------
+
+solution:
+
+
+// transvere the array from the end
+//  end element value is add by one   8+1=9;
+// if the end element value is equal to ten the n assign the value to zero to the index 
+if (n[i] == 10)  n[i]=0;
+//if not equal then simply break out from the loop
+ assume the value is 999 +1 = 1000
+so we need to check the condition that n== 0 && nums[n] ==10
+	// assign the value nums[i] =0;
+	// insert one in the begin of array
+	digit.insert( digit.begin(), 1);
+---------------------------------------------------------------------------------------------------------
+
+code:
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        short int n= digits.size()-1; // why the size of the array is denoted with short int because it will violate the condition ----> bufferoverflow
+
+        if(n>=0)
+        {
+            while(n!= -1)
+            {
+                digits[n] +=1;
+                if(n==0 && digits[n]==10)
+                {
+                    digits[n]=0;
+                    digits.insert(digits.begin(), 1);
+                }
+                else if (digits[n] == 10) digits[n] =0;
+                else break;
+                n--;
+
+            }
+        }
+
+        return digits;
+}
+};
+
+
+        
+    }
+};
+ 
