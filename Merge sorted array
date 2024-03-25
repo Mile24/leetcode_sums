@@ -1,0 +1,128 @@
+
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+-------------------------------------------------------------------------------------------------
+Example 1:
+Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+Output: [1,2,2,3,5,6]
+Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+Example 2:
+
+Input: nums1 = [1], m = 1, nums2 = [], n = 0
+Output: [1]
+Explanation: The arrays we are merging are [1] and [].
+The result of the merge is [1].
+-------------------------------------------------------------------------------------------------
+
+solution:
+// simply add the element  of num2 array into num1 and then sort the element using the sort 
+using the sort function
+sort(nums1.begin(), nums1.end() );
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+
+    int total= m+n-1;
+    
+    for(int k = i+1; k< total ; i++)
+        {
+          nums[k] = nums[j];
+        j++;
+        }
+    sort(nums1.begin(), nums1.end());
+    
+    return nums1;
+}
+};
+time complexity O(n)
+space complexityO(m+n)
+
+
+---------------------------------------------------------------------------------------------------
+
+// check the nums2 element lesser than the last element of the nums1 then swap the element and decrement the i--;
+// if the condition is fails then break from the loop
+//  inside the while add j++;
+//  add the element to end of existing array nums1 using the for loop and then  increment j
+	// intial the value of k = size of nums1.size()+1;
+	// condition  k< m+n;
+
+
+code:
+
+class Solution {
+public:
+  void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+    // Initialize pointers to the end of nums1 (adjusted for existing elements) and beginning of nums2
+    int i = m - 1;
+    int j = 0;
+
+    // Merge elements from the end of nums1 and beginning of nums2 while both arrays have elements
+    while (i >= 0 && j < n) {
+      if (nums1[i] > nums2[j]) {
+        // Swap larger element from nums1 with smaller element from nums2
+        swap(nums1[i], nums2[j]);
+        i--; // Move pointer i to the left (previous element in nums1)
+      } else {
+        // If elements are already in order, no need to swap, break the loop
+        break;
+      }
+      j++; // Move pointer j to the right (next element in nums2)
+    }
+
+    // Handle remaining elements in nums2 (if any)
+    for (int k = i + 1; k < m + n; k++) {
+      nums1[k] = nums2[j]; // Copy elements from nums2 to the end of nums1
+      j++;
+    }
+  }
+};
+
+time complexity O(n)
+space complexityO(m+n)
+
+---------------------------------------------------------------------------------------------------
+// inserting element of the two array into nums1  from the end transeveral
+// increase the size of the nums1  m+n -1;
+// iterate the while loop based on the index value of j 
+// check the nums1 i value greater than 0 and nums[i]> nums[2] then we push the element at the end of nums1and decrement the value of k--, i--;
+// else push the nums2 value into end of nums1
+// decrement the value of k-- and j--;
+
+
+
+ 
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        
+        int i=m-1;
+        int j=n-1;
+        int k= m+n-1;
+
+        while(j>=0)
+        {
+           if(i>=0 &&nums1[i]>nums2[j])
+           {
+               nums1[k--]= nums1[i--];
+
+           } 
+           else
+           {
+               nums1[k--]= nums2[j--];
+           }
+        }
+    }
+};
+
+time complexity O(n)
+space complexityO(m+n)
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
