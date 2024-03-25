@@ -24,7 +24,7 @@ elseif num[i] + nums[j] < target)
 increment i++;
 
 // if not found then return the value as 0;
-
+----------------------------------------------------------------------------------------
 code
 class Solution {
 public:
@@ -42,7 +42,7 @@ public:
 
 }
 
-
+------------------------------------------------------------------------------------------------
 ordered_map
 we will use the unordered hashmap to store the value and index value  of element in the array 
 // we will find the required value in the unordered_map  
@@ -54,7 +54,7 @@ if(mapp.count(comp)) return { mapp[comp], i};
 mapp[nums[i]]=i;
 
 
-
+----------------------------------------------------------------------------------------------------
 Code:
 
 class Solution {
@@ -72,3 +72,20 @@ public:
 	return {};
 
 }
+
+----------------------------------------------------------------------------------------------------
+
+Brute force 
+
+// using two for loop for the trasveral in the array 
+
+for(int i=o -> n)
+	for(int j =1 ->n)
+{
+int sum = nums[i]+nums[j};
+	if (sum == target) return {i, j};
+
+}
+
+return {};
+-----------------------------------------------------------------------------------------------------
