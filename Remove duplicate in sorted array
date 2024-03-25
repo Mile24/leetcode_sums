@@ -1,0 +1,89 @@
+
+
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
+
+Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
+
+Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
+Return k
+
+Custom Judge:
+The judge will test your solution with the following code:
+int[] nums = [...]; // Input array
+int[] expectedNums = [...]; // The expected answer with correct length
+int k = removeDuplicates(nums); // Calls your implementation
+assert k == expectedNums.length;
+for (int i = 0; i < k; i++) {
+    assert nums[i] == expectedNums[i];
+}
+If all assertions pass, then your solution will be accepted.
+
+solution:
+it can be solve by using the standard library in cpp like  " set" 
+// the set will uniquely store the element  the array and remove the duplicate in the array;
+
+
+code:
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+
+set<int> set;
+for(auto ch: nums)
+{
+	set.insert([ch]);
+}
+
+// knowning the size of the set 
+
+int k = set.size();
+
+for(auto ch : set)
+{
+	//storing back into the same array
+
+	nums[j++] = ch;
+
+}
+return k; // return the set size of the store element in the set array.
+
+}
+
+
+------------------------------------------------------------------------------------------------------------
+it can also be solved by using the iterative method 
+// if the prev element is equal to the current element we  simply just move the index value of prev and current 
+// if it not found then we will insert in new array
+time complexity  O(n)
+space complexity o(n) // because of usage of extra space for storing the element
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+vector<int> ans;
+
+ans.push_back(nums[0]);
+
+for(int i=1 ->n)
+{	
+
+	if ( nums[i-1] == nums[i] ) continue;
+	else ans.pushback(nums[i]);
+
+}
+int k = ans.size();
+
+//storing the value of ans into same array;
+
+
+return k;// returning the new array size value;
+
+
+}
+---------------------------------------------------------------------------------------------------------------------
+same of iterative method but without extra space
+
+
+
+
+
