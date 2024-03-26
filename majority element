@@ -1,0 +1,79 @@
+Given an array nums of size n, return the majority element.
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+---------------------------------------------------------------------------------------------------------
+Example 1:
+
+Input: nums = [3,2,3]
+Output: 3
+Example 2
+
+Input: nums = [2,2,1,1,1,2,2]
+Output: 2
+---------------------------------------------------------------------------------------------------------
+explantation:
+first try to find the highest count element in array 
+// simply count the value of the element if it is present in the array
+// else decrease the count  value by 1;
+//if again the count value is equal to 0 then will be reassign the value of the element  and then count the element remaining element in array
+//  use the linear search for the occurs of the element in the entire array
+// check the appear is more than n/2 element
+----------------------------------------------------------------------------------------------------------
+Code:
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+int n= nums.size();
+int count =0;
+int element ;
+
+    for(int i=0; i<n ; i++)
+    {
+        	if (count ==0)	
+        	{
+        		count++;
+        		element = nums[i];
+        
+        	}
+        	else if (element  == nums[i]) count++;
+        	else count--;
+    
+    }
+ count =0;
+    for(int i=0 ; i<n ;i++)
+        {
+        	if (nums[i] == element) count++;
+        }
+        if (count > n/2) return element;
+return -1;
+
+
+}
+};
+
+Time complexity: O()
+space complexity: O()
+----------------------------------------------------------------------------------------------------------------
+case 2:
+// use unordered map function to count the occurs of the element 
+// it is satify the condition then return the element;
+
+code:
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int,int> cnt;
+        int n = nums.size();
+        for(int i = 0; i <n;i++){
+            cnt[nums[i]]++;
+        }
+        for(auto i: cnt){
+            if(i.second > (n/2)) return i.first;
+        }
+        return -1;
+    }
+};
+
+Time complexity: O()
+space complexity: O()
+-----------------------------------------------------------------------------------------------------------
