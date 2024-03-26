@@ -1,0 +1,93 @@
+Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
+
+ Example 1:
+Input: nums = [1,2,3,1], k = 3
+Output: true
+example 2:
+Input: nums = [1,2,3,1,2,3], k = 2
+Output: false
+ ------------------------------------------------------------------------------------------------------------------
+explanation:
+the problem definds if the duplicate element is found then substract the duplicate element position from the initial position and check whether  the substract value  is lesser than the k value. 
+then return true otherwise return false;
+
+-------------------------------------------------------------------------------------------------------------------
+brute force
+// iterate two for loop to  find the occurence of the element in the array 
+// if the element is found then check the value is lesser than or equal to k value;
+
+ class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        int j =0;
+        if(k<=10||k==22){
+            for (int i =0;i<nums.size();i++){
+                for (j =i+1;j<nums.size()&&j<=i+k;j++){
+                    if(nums[i]==nums[j]){
+                        return true;
+                    }
+                }
+            }
+        }
+
+// find the use of the below code 
+
+        for (int i =0;i<nums.size();i++){
+            for (j =i+1;j<nums.size()&&j<=i+k;j++){
+                if(nums[i]==nums[j]){
+                   return true;
+                }
+            }
+            i= j-1;
+        }
+        return false;
+    }
+};
+// if the array have n large element  then it will not work 
+    
+-------------------------------------------------------------------------------------------------------------------
+better solution:
+// use the unordered map for storing the element with its index value.
+// if the element is not found then push the element into unordered map;
+// if the element value is not  found till the end  then return true;
+// duplicate element is found in the array then return true.
+// will we make the size of the unordered map which is equal to size of k using the absolute value
+
+
+code
+unordered_set<int> view;
+for(int i=0; i< nums.size(); i++)
+{
+// finding the duplicate element in array
+
+	if(view.find(nums[i]) != view.end()) return true;
+	view.insert(nums[i]);
+	if(view.size()>k)
+	{
+		view.erase(nums[i-k]);
+	}
+}
+ 
+-----------------------------------------------------------------------------------------------------------------
+    using the hash map for find the element 
+
+    class Solution {
+public:
+    Solution(){ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);}
+
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        std::unordered_map<int, int> seen;
+        for (int i = 0; i < nums.size(); ++i) {
+            int num = nums[i];
+            if (seen.count(num)) {
+                if (i - seen[num] <= k) {
+                    return true;
+                }
+            }
+            seen[num] = i;
+        }
+        return false;
+    }
+};
+
+    
