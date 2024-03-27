@@ -1,0 +1,72 @@
+A valid parentheses string is either empty "", "(" + A + ")", or A + B, where A and B are valid parentheses strings, and + represents string concatenation.
+
+For example, "", "()", "(())()", and "(()(()))" are all valid parentheses strings.
+A valid parentheses string s is primitive if it is nonempty, and there does not exist a way to split it into s = A + B, with A and B nonempty valid parentheses strings.
+
+Given a valid parentheses string s, consider its primitive decomposition: s = P1 + P2 + ... + Pk, where Pi are primitive valid parentheses strings.
+
+Return s after removing the outermost parentheses of every primitive string in the primitive decomposition of s.
+
+ --------------------------------------------------------------------------------------------------
+Example 1:
+
+Input: s = "(()())(())"
+Output: "()()()"
+Explanation: 
+The input string is "(()())(())", with primitive decomposition "(()())" + "(())".
+After removing outer parentheses of each part, this is "()()" + "()" = "()()()".
+Example 2:
+
+Input: s = "(()())(())(()(()))"
+Output: "()()()()(())"
+Explanation: 
+The input string is "(()())(())(()(()))", with primitive decomposition "(()())" + "(())" + "(()(()))".
+After removing outer parentheses of each part, this is "()()" + "()" + "()(())" = "()()()()(())".
+Example 3:
+
+Input: s = "()()"
+Output: ""
+Explanation: 
+The input string is "()()", with primitive decomposition "()" + "()".
+After removing outer parentheses of each part, this is "" + "" = "".
+-----------------------------------------------------------------------------------------------------
+
+Explanation:
+// need to remove the outmost parenthesis in from the given string or array
+
+// So that we need have the count of ( greater than one then only we can store the inner element in string ;
+// if the count of ) then decrement the value of count and push the element into string;
+
+code:
+class Solution {
+public:
+    string removeOuterParentheses(string s) {
+        string  count ;
+        int opened =0;
+        for(char it :s)
+        {
+            if(it == '(' && opened++ >0 ) count += it;
+            if(it == ')' && opened-- >1) count += it;
+        }
+       return count;
+
+    }
+};
+initailly the value of opened will be zero 
+// if(it == '(' && opened (0)++ >0 ) count += it;    ///fails the condition and the opened will be increment to value of 1;
+// when the second if condition will works 
+        ./ asssume the have of opened is 6 then 5 ")" can be pushed into the string ;
+
+
+case ()()
+
+char ( -->  if(it == '(' && opened++ >0 ) count += it;  flase; and opened = 1;
+char )-->       if(it == ')' && opened-- >1) count += it; flast && opened =0;
+
+similar for the remaining two string
+
+
+
+      
+
+ 
