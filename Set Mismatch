@@ -1,0 +1,66 @@
+You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, due to some error, one of the numbers in s got duplicated to another number in the set, which results in repetition of one number and loss of another number.
+
+You are given an integer array nums representing the data status of this set after the error.
+
+Find the number that occurs twice and the number that is missing and return them in the form of an array.
+---------------------------------------------------------------------------------------------------------------
+Example 1:
+
+Input: nums = [1,2,2,4]
+Output: [2,3]
+Example 2:
+
+Input: nums = [1,1]
+Output: [1,2]
+---------------------------------------------------------------------------------------------------------------------
+explanation:
+first decode the question into smaller parts 
+// we need to find the duplicate element index 
+// similarly need to find the missing element in array 
+// store the value of the both in vector and finally return the variable
+
+
+code:
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+    
+        int n= nums.size();
+        int prev, current;
+        sort(nums.begin(), nums.end());
+
+        vector<int> ans(2);
+
+        for(int i=1; i<n;i++)
+        {
+            prev = nums[i-1];
+            current = nums[i];
+
+            if(prev == current)
+            {
+                ans[0]= nums[i];
+            }
+        }
+
+        int sum = accumulate(nums.begin(), nums.end(),0)- ans[0]; // accumluate is used for calculate the total some of the array 
+
+
+        int orgSum = (nums.size()*(nums.size()+1))/2;     // based on the total no of element present in array;
+
+
+        ans[1]= orgSum -sum;
+
+        return ans;
+
+        
+    }
+};
+
+
+-------------------------------------------------------------------------------------------------------------------
+case 2: 
+if the element starting from the 5, 6,7,8 ,8,10;
+// we can use the index value to find the common difference between array element value and index 
+// if the count value violate the previous value then return count +1;
+
+-------------------------------------------------------------------------------------------
