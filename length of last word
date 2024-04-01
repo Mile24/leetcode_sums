@@ -1,0 +1,64 @@
+Given a string s consisting of words and spaces, return the length of the last word in the string.
+
+A word is a maximal 
+substring
+ consisting of non-space characters only.
+------------------------------------------------------------------------------------------
+Example 1:
+
+Input: s = "Hello World"
+Output: 5
+Explanation: The last word is "World" with length 5.
+--------------------------------------------------------------------------------------------
+
+Intuition
+First step to solve the problem, Is to analysis the sample output.
+Here the main objective is to return the last word count of given string.
+---------------------------------------------------------------------------------------------
+Approach
+cases need to be consider:
+---------------------------------------------------------------------------------------------
+Transerval the string from the end using for loop
+First the string may contain the whitespace at the end of the string, so we need to skip the first occurence of the whitespace and then count the element from the end.
+After the character if any whitespace are there then we need to terminate from the loop.
+the return "count of the last word".
+Example:
+Input : "helloe world "
+output: 5.
+
+
+explanation:
+1. last element in the string is whitespace skip the element
+2. start the count of the character from d now the value of ans will be 1, It will iterate till the character "w" and the value of ans will be 5.
+3. when the compiler encounter the whitespace then it will break from the loop and return value of ans.
+
+--------------------------------------------------------------------
+Complexity
+Time complexity:
+O(n)
+Space complexity:
+O(1)
+
+------------------------------------------------------------------------------------------------
+Code:
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+
+        int n = s.size();
+        int  ans = 0;
+        for(int i=n-1 ; i>=0; i--)
+        {
+
+            if(s[i] == ' ' && ans ==0)continue;   
+            if(s[i] == ' ' && ans!=0)break;
+            if (s[i] != ' ')ans++;
+        
+
+        }
+       
+        return ans;
+
+        
+    }
+};
