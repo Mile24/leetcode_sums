@@ -1,0 +1,81 @@
+Given a string s, find the length of the longest 
+substring
+ without repeating characters.
+ ----------------------------------------------------------------------------
+
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+-------------------------------------------------------------------------------
+
+breakdown:
+
+sliding window : subset of array
+To find the longest length of string without repetition. 
+We can use two variable pointer for the transerval in the array to find the subset in it.
+we need to update the range of the subset using the variable for entire tranvseral in array.
+---------------------------------------------------------------------------------
+explanation:
+
+1.use the unordered hash map to store the occurrence of the element in the array;
+2.initialize one variable to the value 0;
+3.use another variable to trasveral in the array;
+4.check whether the element is found in the hashmap, if not then  store the element in the hashmap; 
+5.inside the condition find the max element value by using the right-left+1;
+6.If the element is found in the hashmap then we remove the element from the set from the left side,
+  and increase the count of the left++;(condition while((set.count(s[right])) 
+  This condition is used to remove the particular character from the subset.
+  
+7.=return max1; 
+---------------------------------------------------------------------------------
+
+Time complexity:
+O(n)
+space complexity:
+O(1)
+--------------------------------------------------------------------------------
+
+Code:
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int size1 = s.size();
+        if(size1 ==0) return 0;
+        int max1 = INT_MIN;
+        unordered_set <int> set;
+        int left = 0;
+        for(int right =0; right<size1; right++)
+        {
+           if(set.count(s[right]) ==0)
+           {
+            set.insert(s[right]);
+            max1 = max(max1, right-left+1);
+           }
+           else
+           {
+            while(set.count(s[right])){
+                set.erase(s[left]);
+                left++;
+            }
+            set.insert(s[right]);
+            
+           }
+        }
+       
+        return max1;
+
+    }
+};
