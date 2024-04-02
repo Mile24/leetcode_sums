@@ -1,0 +1,64 @@
+Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. The relative order of the elements should be kept the same.
+
+Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
+
+Return k after placing the final result in the first k slots of nums.
+
+Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
+--------------------------------------------------------------------------------------------------------
+Example 1:
+
+Input: nums = [1,1,1,2,2,3]
+Output: 5, nums = [1,1,2,2,3,_]
+Explanation: Your function should return k = 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+Example 2:
+
+Input: nums = [0,0,1,1,1,1,2,3,3]
+Output: 7, nums = [0,0,1,1,2,3,3,_,_]
+Explanation: Your function should return k = 7, with the first seven elements of nums being 0, 0, 1, 1, 2, 3 and 3 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+-----------------------------------------------------------------------------------------------------
+Intuition
+First step in analysis that we need to store only two consquence sequence number and more than two element should be removed from it.
+
+Approach
+1.using two pointer we can solve the problem that the occurs of the element can be counted.
+2.now here we will both the pointer as value of 1.
+3.iterate throughout the loop till condition get fail i.e i<n
+4.inside it will use another condition that the if the j value is equal to 1 simply store the array value of nums[i] into nums[j++] and then increment the value of the j variable.
+5. finally return the index j local memory address.
+-------------------------------------------------------------------------------------------------------
+Explanation with Example:
+Input: nums = [0,0,1,1,1,1,2,3,3]
+
+1.intially nums[j(0)] will be remain unchanged. Both the index will pointout the index i(1) and j(1).
+2.store the value of nums[1] into nums[j(1)++].
+3.now the value of j =2 and i =2;
+4.In if condition nums[i(2)] != nums[j -2]false. "j =2" because 1 !=0;
+5.similarly consider the i value is 4 and j =4 check the condition that nums[i(4)] != nums[j-2]---> nums[4] != nums[4-2] 
+which will equal to nums[4] != nums[2] ---> 1 !=1 false then it will not store the value of i in nums[j];
+6.similarly the code will iterate till the end of the array.
+-----------------------------------------------------------------------------------------------------------
+Complexity
+Time complexity:
+O(N)
+Space complexity:
+O(1)
+------------------------------------------------------------------------------------------------------
+Code
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n= nums.size();
+        int j=1;
+
+
+        for(int i=1; i<n;i++)
+        {
+            if(j ==1 || nums[i] != nums[j-2]) nums[j++] = nums[i];
+        }
+        return j;
+
+    }
+};
