@@ -1,0 +1,62 @@
+
+Given two strings s and t, determine if they are isomorphic.
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+
+ -----------------------------------------------------------------------------------------------------------
+
+Example 1:
+
+Input: s = "egg", t = "add"
+Output: true
+Example 2:
+
+Input: s = "foo", t = "bar"
+Output: false
+Example 3:
+
+Input: s = "paper", t = "title"
+Output: true
+--------------------------------------------------------------------------------------------------------------
+Intuition
+To compare the two different string which has same number of count of element in each.
+
+Approach
+use hash table to store the value of the found element in both the string s and t.
+checj whether both string element count is same or not if the not then return "false".
+Intially check whether the element is occur in the hash table value if the value is not match then return false.
+Else increment the hash table value of the both string and iterate the loop till the end of string.
+--------------------------------------------------------------------------------------------------------------
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+--------------------------------------------------------------------------------------------------------------
+Code:
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+
+        if (s.length() != t.length())return false;
+        map<char, int> mapp1;
+        map<char, int> mapp2;
+
+
+        for(int i=0; i<s.length(); i++)
+        {
+            if(mapp1[s[i]] != mapp2[t[i]])return false;
+
+            mapp1[s[i]] = i+1;
+            mapp2[t[i]] = i+1;
+
+        }
+        return true;
+
+        
+    }
+};
+--------------------------------------------------------------------------------------------------------------
+Output case:
+true
