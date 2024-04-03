@@ -1,0 +1,83 @@
+Intuition
+First step we need to solve the problem is to that we need to search whether the next element will be found in all the direction of the current position from the matrix.
+So recursion need to made for solving the problem.
+----------------------------------------------------------------------------------------------
+
+Approach
+Assume the searching the matrix should result in the form boolean value.
+
+First initials two variable i and j and store the count of row in i and count of column in j.
+
+If the node or element of the matrix is visited then it should be marked with dummy value, Inorder to avoid repeative search in the matrix.
+
+store the value of element in temp variable which is the form string.
+
+From the particular position we need to check in all the direction i-1, i+1, j-1, j+1 inorder to find the next element in the matrix.
+
+Inside the recursive condition add k+1 in all the cases.
+
+if k== word.length then return the value true.
+
+use nested for loop in order to transveral the entire matrix.
+
+Inside the nested condition have if condtion which recurrence call the relation inorder to find the word in the matrix. If it found then return true.
+
+finally return false.
+---------------------------------------------------------------------------------------------------------
+
+Explanation:
+sample case:
+[
+['A','B','C','E'], // Row 0, column 0 to 3
+['S','F','C','S'], // Row 1
+['A','D','E','E'] // Row 2
+]
+
+First the index i =0 and j=0 will be passed as parameter to the backtrack function. Intially it will fails the condtion ie i<0 return false.
+index i=1 and j =0 again it will fails the condtion by violating the condition i>=m, j<0.
+let assume that the pointer pointing to the index [1][3] it will violate the condition and store the element value in the string temp and then assign the '\0' to that postion in the board , In order to avoid the repreative looping inside the matrices.
+Now it will check in all four direction from the current postion will the next consquence element is found then store the element in temp and again check the next consequence element in the matrices.
+At every stage check the condition that k value is equal to word size then return true.
+Finally the value is store in temp.
+-------------------------------------------------------------------------------------------------------------------
+
+Complexity
+Time complexity:
+O(m*n)
+Space complexity:
+O(s)
+--------------------------------------------------------------------------------------------------------------------
+Code:
+
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+
+        int m = board.size();
+        int n= board[0].size();
+        function<bool(int, int, int)> backtrack =[&](int i, int j, int k)
+        {
+            if (k ==word.length())return true;
+     
+        if(i<0 || i>=m || j<0 || j>=n || board[i][j] != word[k])return false;
+        char temp = board[i][j];
+        board[i][j] = '\0';
+        if(backtrack (i+1, j, k+1)|| backtrack(i-1, j, k+1)|| backtrack(i, j+1, k+1) || backtrack(i, j-1, k+1))return true;
+        
+        
+        board[i][j] = temp;
+        return false;
+       };
+       for(int i=0; i<m ; i++)
+       {
+        for(int j =0; j<n ; j++)
+        {
+            if(backtrack(i,j,0)) return true;
+        }
+       }
+
+        return false;
+    }
+   
+
+};
