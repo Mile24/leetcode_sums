@@ -1,0 +1,120 @@
+Given a string path, which is an absolute path (starting with a slash '/') to a file or directory in a Unix-style file system, convert it to the simplified canonical path.
+
+In a Unix-style file system, a period '.' refers to the current directory, a double period '..' refers to the directory up a level, and any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'. For this problem, any other format of periods such as '...' are treated as file/directory names.
+
+The canonical path should have the following format:
+
+The path starts with a single slash '/'.
+Any two directories are separated by a single slash '/'.
+The path does not end with a trailing '/'.
+The path only contains the directories on the path from the root directory to the target file or directory (i.e., no period '.' or double period '..')
+Return the simplified canonical path.
+
+ ---------------------------------------------------------------------------------------
+
+Example 1:
+
+Input: path = "/home/"
+Output: "/home"
+Explanation: Note that there is no trailing slash after the last directory name.
+Example 2:
+
+Input: path = "/../"
+Output: "/"
+Explanation: Going one level up from the root directory is a no-op, as the root level is the highest level you can go.
+Example 3:
+
+Input: path = "/home//foo/"
+Output: "/home/foo"
+Explanation: In the canonical path, multiple consecutive slashes are replaced by a single one.
+---------------------------------------------------------------------------------------
+Intuition
+The main objective is to return the value of the /word or /. in output console.
+---------------------------------------------------------------------------------------
+Approach
+We will iterate the loop till the size of the string.
+Inside it intialize the two variable start = i and end =i+1 generally the value of i current value of iterating in the above while loop.
+Again we will iterate the while loop till the condition reach the end of the string by checking the content of the string which contain the backslash '/' in the end. till the condition get fails we will increment the value of end.
+assign the value of the end to variable i.
+create new string variable based on the start and the end-start position value.
+check the condition whether it contain only single slash or slash with dot. then simply continue.
+again check the another condition where it does not contain slash with double dot then push the element inside the stack
+If it fails the condition then check the condtion that the stack is not empty then pop the element from the stack because it will condtion /..
+check the condtion outside the loop that stack is empty or not if empty then value will be "/" else ""
+use recursive call function to store back the element in reverse order which required.
+store the top most element of the stack and then pop the element from the stack and then repeat the recursion inside the function itself.
+-------------------------------------------------------------------------------------
+Complexity
+Time complexity:
+O(n)
+Space complexity:
+O(n)
+
+-------------------------------------------------------------------------------------
+Explantion:
+
+Input: path = "/home/"
+
+1. Initially the value of i =0 and less than the size of the given string
+2. Now the value of start = i, and end =i+1 ie start =0 and end =1;
+3. iterate the while loop till it reach the end of the of the string till it reaches the '/' increase the count of end++ till the condtion get fails.
+4.assign the value i  = end ; ie i =4
+5.substring is startfrom (start , end-start) ie (0, 4-0) it will contain /home
+6. check the condition whether it contain only / or /. it fails.
+7.check the condition whether it not contain  /.. then push the element into the stack it true.
+8. it will terminate from the loop.
+9. create string variable ans by checking the condtion whether it is empty or not --. false
+10. function with the parameter (stack s, "")
+11. it will reverse the string and return ans;
+
+1. inside the function 
+store the element from the top and pop the element from the top. 
+It will continue till it reach the end of the stack.
+and  store the final value in the string .
+
+
+
+-------------------------------------------------------------------------------------
+code:
+class Solution {
+public:
+
+
+    string simplifyPath(string path) {
+        stack<string> s;
+        int i=0;
+        
+
+       while(i<path.size())
+       {
+       
+        int start =i;
+
+        int end= i+1;
+          while(end<path.size() && (path[end]!= '/'))end++;
+          i =end;
+
+        string minipath = path.substr(start, end-start);
+        
+        if (minipath == "/" || minipath =="/.") continue;
+
+        if(minipath != "/..") s.push(minipath);
+        else if (!s.empty()) s.pop();
+        
+       }
+       string ans = s.empty() ? "/" : "";
+        build(s,ans);
+       return ans;
+
+        
+    }
+
+void build ( stack<string> &s, string &ans)
+    {
+        if(s.empty()) return ;
+        string mini = s.top();
+        s.pop();
+        build(s, ans);
+        ans +=mini;
+    }    
+};
