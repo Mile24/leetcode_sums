@@ -1,0 +1,73 @@
+A string is a valid parentheses string (denoted VPS) if it meets one of the following:
+
+It is an empty string "", or a single character not equal to "(" or ")",
+It can be written as AB (A concatenated with B), where A and B are VPS's, or
+It can be written as (A), where A is a VPS.
+We can similarly define the nesting depth depth(S) of any VPS S as follows:
+
+depth("") = 0
+depth(C) = 0, where C is a string with a single character not equal to "(" or ")".
+depth(A + B) = max(depth(A), depth(B)), where A and B are VPS's.
+depth("(" + A + ")") = 1 + depth(A), where A is a VPS.
+For example, "", "()()", and "()(()())" are VPS's (with nesting depths 0, 1, and 2), and ")(" and "(()" are not VPS's.
+
+Given a VPS represented as string s, return the nesting depth of s.
+------------------------------------------------------------------------------------------
+Example 1:
+
+Input: s = "(1+(2*3)+((8)/4))+1"
+Output: 3
+Explanation: Digit 8 is inside of 3 nested parentheses in the string.
+Example 2:
+
+Input: s = "(1)+((2))+(((3)))"
+Output: 3
+------------------------------------------------------------------------------------------
+Intuition
+To find the longest conseqentive parathensis in the given string.
+It can be solved by using single traversal of array. don't required stack to find the solution.
+--------------------------------------------------------------------------------------
+Approach
+we will intialize two variable one for the count of the open paranthensis and another for storing the max value of count.
+Both are initially assigned the value of 0.
+It can done by iterating the entire array of character of string.
+If we encounter the value of one parenthesis then we will increment the value of count.
+when it fails then we need to check whether the value of max1 is lesser than count value then assign the value of count to max1.
+If we find the close paranthesis while iterating then decrement the value of count.
+finally return the value of count.
+---------------------------------------------------------------------------------------
+Explanation:
+Input: s = "(1)+((2))+(((3)))"
+
+first the ( is encounter then increment the value of count and check the condition whether max1 is lesser than count. It will return true and then value of max1 is 1.
+It will skip the opearand and operator.
+) is encounter then decrement the value of count =0.
+(( the count value will be 2 and then max1 =2 and then count value will be decrement to 0 due to )).
+((( the count value will be 3 and then max1 =3 and then count value will be decrement to 0 due to ))).
+---------------------------------------------------------------------------------------
+Complexity
+Time complexity:
+O(n)
+Space complexity:
+O(1)
+---------------------------------------------------------------------------------------
+Code
+class Solution {
+public:
+    int maxDepth(string s) {
+        int count =0;
+        int max1 =0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='(')
+            {
+                count++;
+            if(max1< count) max1= count;
+            }
+            else if (s[i] ==')')count--;
+
+        }
+        return max1;
+
+    }
+};
